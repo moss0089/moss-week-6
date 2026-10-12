@@ -4,12 +4,44 @@ Complete the TODOs in this file.
 """
 
 # --- Imports --- #
+import numpy as np
 
 
 # --- Problem 1: Quadratic (Projectile Fall Time) --- #
-def root_quadratic_projectile_time(h0, v0, g):
-    """Find the positive time at which a vertically launched projectile returns to height 0."""
-    raise NotImplementedError
+def root_quadratic_projectile_time(h0: float, v0: float, g: float) -> float:
+    """Find the positive time at which a vertically launched projectile returns to height 0.
+
+    Parameters
+    ----------
+    h0 : float
+        Initial height.
+    v0 : float
+        Initial velocity.
+    g : float
+        Gravitational acceleration.
+
+    Returns
+    -------
+    float
+        Time at which projectile returns to height 0.
+
+    Raises
+    ------
+    ValueError
+        If 'h0' is not greater than or equal to zero.
+    ValueError
+        If 'g' is zero.
+    """
+
+    if h0 < 0:
+        raise ValueError("Initial height must be at or above ground level (h=0).")
+    elif g == 0:
+        raise ValueError("Without gravity, your ball will never touch the ground again...")
+    else:
+        g = abs(g)
+        g = -g * 0.5
+        land_t = (-v0 - np.sqrt(v0**2 - 4 * g * h0)) / (2 * g)
+        return float(land_t)
 
 
 # --- Problem 2: Transcendental (Wien's Displacement Law) --- #
