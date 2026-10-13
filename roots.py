@@ -87,9 +87,30 @@ def root_radioactive_decay_time(N0: float, N_target: float, half_life: float) ->
 
 
 # --- Problem 4: Non-Trivial Transcendental (Finite Square Well) --- #
-def root_finite_square_well_even_state(V0, m, hbar, L):
-    """Find the bound-state wavenumber k of the lowest even state in a finite square well."""
-    raise NotImplementedError
+def root_finite_square_well_even_state(V0: float, m: float, hbar: float, L: float) -> float:
+    """Find the bound-state wavenumber k of the lowest even state in a finite square well.
+
+    Parameters
+    ----------
+    V0 : float
+        Well depth.
+    m : float
+        Mass of particle.
+    hbar : float
+        Value of Dirac constant.
+    L : float
+        Well width.
+
+    Returns
+    -------
+    float
+        Lowest even bound state's wavenumber.
+    """
+
+    def fun(k):
+        return np.sqrt((2 * m * V0 / hbar**2) - k**2) - (k * np.tan(k * L * 0.5))
+    sol = spo.root(fun, 3 / L)
+    return float(sol.x[0])
 
 
 # --- Problem 5: Complex Roots (Damped Harmonic Oscillator) --- #
