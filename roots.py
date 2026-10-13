@@ -114,9 +114,37 @@ def root_finite_square_well_even_state(V0: float, m: float, hbar: float, L: floa
 
 
 # --- Problem 5: Complex Roots (Damped Harmonic Oscillator) --- #
-def roots_damped_oscillator(m, c, k):
-    """Find both roots s of the characteristic equation m*s**2 + c*s + k = 0."""
-    raise NotImplementedError
+def roots_damped_oscillator(m: float, c: float, k: float) -> tuple[complex, complex]:
+    """Find both roots s of the characteristic equation m*s**2 + c*s + k = 0.
+
+    Parameters
+    ----------
+    m : float
+        Mass.
+    c : float
+        Damping factor.
+    k : float
+        Spring constant.
+
+    Returns
+    -------
+    tuple(complex, complex)
+        Roots of characteristic equation.
+    """
+
+    # determine nature of roots using quadratic discriminant
+    qdis = c**2 - 4 * m * k
+    if qdis > 0:
+        root_1 = complex((-c - np.sqrt(qdis)) / (2 * m))
+        root_2 = complex((-c + np.sqrt(qdis)) / (2 * m))
+        return root_1, root_2
+    elif qdis == 0:
+        root_d = complex(-c / (2*m))
+        return root_d, root_d
+    else:
+        root_1 = complex((-c - np.emath.sqrt(qdis)) / (2 * m))
+        root_2 = complex((-c + np.emath.sqrt(qdis)) / (2 * m))
+        return root_1, root_2
 
 
 # --- Problem 6: Multivariate (Circle Intersection / Trilateration) --- #
