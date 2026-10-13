@@ -65,9 +65,25 @@ def root_wien_displacement_x(coef: float) -> float:
 
 
 # --- Problem 3: Transcendental (Radioactive Decay) --- #
-def root_radioactive_decay_time(N0, N_target, half_life):
-    """Find the elapsed time at which a sample of N0 nuclei decays to N_target nuclei."""
-    raise NotImplementedError
+def root_radioactive_decay_time(N0: float, N_target: float, half_life: float) -> float:
+    """Find the elapsed time at which a sample of N0 nuclei decays to N_target nuclei.
+
+    Parameters
+    ----------
+    N0 : float
+        Initial sample size.
+    N_target : float
+        Target sample size.
+    half_life : float
+        Half-life of sample.
+
+    Returns
+    -------
+    float
+        Elapsed time.
+    """
+    sol = spo.fsolve(lambda x: N0*(1/2)**(x/half_life) - N_target, half_life)
+    return float(sol[0])
 
 
 # --- Problem 4: Non-Trivial Transcendental (Finite Square Well) --- #
