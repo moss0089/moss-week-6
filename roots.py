@@ -5,6 +5,7 @@ Complete the TODOs in this file.
 
 # --- Imports --- #
 import numpy as np
+import scipy.optimize as spo
 
 
 # --- Problem 1: Quadratic (Projectile Fall Time) --- #
@@ -45,9 +46,22 @@ def root_quadratic_projectile_time(h0: float, v0: float, g: float) -> float:
 
 
 # --- Problem 2: Transcendental (Wien's Displacement Law) --- #
-def root_wien_displacement_x(coef):
-    """Find the positive root x of x * exp(x) = coef * (exp(x) - 1)."""
-    raise NotImplementedError
+def root_wien_displacement_x(coef: float) -> float:
+    """Find the positive root x of x * exp(x) = coef * (exp(x) - 1).
+
+    Parameters
+    ----------
+    coef : float
+        Coefficient from the blackbody radiation equation.
+
+    Returns
+    -------
+    np.float
+        Wein's displacement law constant.
+    """
+
+    sol = spo.root_scalar(lambda x: x * np.exp(x) - coef * (np.exp(x) - 1), x0=coef)
+    return sol.root
 
 
 # --- Problem 3: Transcendental (Radioactive Decay) --- #
