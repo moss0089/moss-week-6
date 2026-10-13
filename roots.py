@@ -148,9 +148,30 @@ def roots_damped_oscillator(m: float, c: float, k: float) -> tuple[complex, comp
 
 
 # --- Problem 6: Multivariate (Circle Intersection / Trilateration) --- #
-def root_circle_intersection(r1, r2, d):
-    """Find the (x, y) point above the baseline where two circles of radii r1, r2 intersect."""
-    raise NotImplementedError
+def root_circle_intersection(r1: float, r2: float, d: float) -> tuple[float, float]:
+    """Find the (x, y) point above the baseline where two circles of radii r1, r2 intersect.
+
+    Parameters
+    ----------
+    r1 : float
+        Radius of first circle.
+    r2 : float
+        Radius of second circle.
+    d : float
+        X-offset of second circle.
+
+    Returns
+    -------
+    tuple[float, float]
+        Point above baseline where the two circles meet.
+    """
+
+    def fun(x):
+        return np.sqrt(r1**2 - x**2) - np.sqrt(r2**2 - (x-d)**2)
+    br = [d-r2, r1]
+    sol = spo.root_scalar(fun, bracket=br)
+    y_val = np.sqrt(r1**2 - (sol.root)**2)
+    return tuple([float(sol.root), float(y_val)])
 
 
 # --- Problem 7: Multivariate Statics (Two Masses, Three Strings) --- #
