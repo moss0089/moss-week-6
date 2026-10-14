@@ -82,6 +82,7 @@ def root_radioactive_decay_time(N0: float, N_target: float, half_life: float) ->
     float
         Elapsed time.
     """
+
     sol = spo.fsolve(lambda x: N0*(1/2)**(x/half_life) - N_target, half_life)
     return float(sol[0])
 
@@ -176,7 +177,23 @@ def root_circle_intersection(r1: float, r2: float, d: float) -> tuple[float, flo
 
 # --- Problem 7: Multivariate Statics (Two Masses, Three Strings) --- #
 def root_two_masses_three_strings(
-    L, lengths, weights
-):
-    """Find the equilibrium angles and tensions of two weights hung from three strings."""
+    L: float, lengths: tuple[float, float, float], weights: tuple[float, float]
+) -> tuple[tuple[float, float, float], tuple[float, float, float]]:
+    """Find the equilibrium angles and tensions of two weights hung from three strings.
+
+    Parameters
+    ----------
+    L : float
+        Horizontal distance between supports.
+    lengths : tuple[float, float, float]
+        String lengths.
+    weights : tuple[float, float]
+        Mass of the weights.
+
+    Returns
+    -------
+    tuple[tuple[float, float, float], tuple[float, float, float]]
+        Calculated equilibrium angles and tensions.
+    """
+
     raise NotImplementedError
